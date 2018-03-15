@@ -4,14 +4,66 @@ import $ from 'jquery';
 import BookView from './components/BookView.jsx';
 import BookList from './components/BookList.jsx';
 
+var bookViewStyle = {
+  border: '1px solid #8c1f13',
+  backgroundColor: '#e28888',
+  width: 400,
+  borderRadius: 15,
+  padding: 15,
+  margin: 20,
+}
+
+var listStyle = {
+  border: '1px solid #0d440b',
+  backgroundColor: '#9de590',
+  width: 400,
+  borderRadius: 15,
+  paddingLeft: 15,
+  paddingRight: 15,
+  paddingBottom: 15,
+  margin: 20
+}
+
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = { 
-      currentBook: null,
-      favorites: [],
-      interested: [],
-      shelf: []
+      currentBook: {
+        isbn: 1503302946,
+        title: 'Call of the Wild',
+        author: 'Jack London',
+        description: 'Set in the Yukon during the 1890s Klondike Gold Rush',
+        pages: 66,
+        genre: 'Classics',
+        year: 1903
+      },
+      favorites: [{
+        isbn: 1450523730,
+        title: 'Ulysses',
+        author: 'James Joyce',
+        description: 'Stream-of-consciousness',
+        pages: 442,
+        genre: 'Modernism',
+        year: 1922 
+      }],
+      interested: [{
+        isbn: 1975743660,
+        title: 'The Great Gatsby',
+        author: 'F. Scott Fitzgerald',
+        description: 'Exemplary novel of the Jazz Age',
+        pages: 184,
+        genre: 'Modernism',
+        year: 1924
+      }],
+      shelf: [{
+        isbn: 1099908506,
+        title: 'The Sun Also Rises',
+        author: 'Ernest Hemingway',
+        description: 'Quintessential story of the Lost Generation',
+        pages: 256,
+        genre: 'Modernism',
+        year: 1926
+      }]
     };
     this.selectBook = this.selectBook.bind(this)
   }
@@ -105,28 +157,28 @@ class App extends React.Component {
     //     console.log('error viewing book');
     //   }
     // })
-    this.setState({currentBook: book});
+    // this.setState({currentBook: book});
   }
 
   render () {
     // current book and each list with books = state object
     return (
     <div>
-      <BookView book={this.state.currentBook} />
+      <div style={bookViewStyle}><BookView book={this.state.currentBook} /></div>
       <div>
 
-        <div>
-          <h1>Favorites</h1>
+        <div style={listStyle}>
+          <h3>Favorites</h3>
           <BookList books={this.state.favorites} selectBook={this.selectBook} />
         </div>
 
-        <div>
-          <h1>Shelf</h1>
+        <div style={listStyle}>
+          <h3>Shelf</h3>
           <BookList books={this.state.shelf} selectBook={this.selectBook} />
         </div>
 
-        <div>
-          <h1>Interested</h1>
+        <div style={listStyle}>
+          <h3>Interested</h3>
           <BookList books={this.state.interested} selectBook={this.selectBook} />
         </div>
 

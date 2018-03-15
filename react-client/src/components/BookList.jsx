@@ -12,10 +12,9 @@ class BookList extends React.Component {
     }
 
     render() {
-	  	(<div>
-	    	<h4> List Component </h4>
-	    	There are { props.books.length } books.
-	    	{ props.books.map(book => <ListItem book={book} onClick={this.props.selectBook(book)}/>)}
+	  	return (<div>
+	    	There are { this.props.books.length } books.
+	    	{ this.props.books.map(book => <BookItem key={book.isbn} book={book} onClick={this.props.selectBook(book)}/>)}
 	  	</div>
 		)
   	}
