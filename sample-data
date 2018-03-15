@@ -6,7 +6,8 @@ var books = [
 		description: 'Set in the Yukon during the 1890s Klondike Gold Rush',
 		pages: 66,
 		genre: 'Classics',
-		year: 1903
+		year: 1903, 
+		cover: null
 	},
 	{
 		isbn: 1450523730,
@@ -15,7 +16,8 @@ var books = [
 		description: 'Stream-of-consciousness',
 		pages: 442,
 		genre: 'Modernism',
-		year: 1922 
+		year: 1922, 
+		cover: null
 	},
 	{
 		isbn: 1975743660,
@@ -24,7 +26,8 @@ var books = [
 		description: 'Exemplary novel of the Jazz Age',
 		pages: 184,
 		genre: 'Modernism',
-		year: 1924
+		year: 1924,
+		cover: null
 	},
 	{
 		isbn: 0099908506,
@@ -33,7 +36,8 @@ var books = [
 		description: 'Quintessential story of the Lost Generation',
 		pages: 256,
 		genre: 'Modernism',
-		year: 1926
+		year: 1926,
+		cover: null
 	},
 	{
 		isbn: 1983732141,
@@ -42,7 +46,8 @@ var books = [
 		description: 'Kaleidoscope of consciousness',
 		pages: 386,
 		genre: 'Historical',
-		year: 1929
+		year: 1929,
+		cover: null
 	},
 	{
 		isbn: 0141399139,
@@ -51,7 +56,8 @@ var books = [
 		description: 'An unforgettable novel of self-confession',
 		pages: 356,
 		genre: 'Erotica',
-		year: 1934
+		year: 1934,
+		cover: null
 	},
 	{
 		isbn: 1983811645,
@@ -60,7 +66,8 @@ var books = [
 		description: 'The Great American Novel',
 		pages: 825,
 		genre: 'Historical',
-		year: 1936
+		year: 1936,
+		cover: null
 	},
 	{
 		isbn: 0143039431,
@@ -69,7 +76,8 @@ var books = [
 		description: 'A drama that is intensely human yet majestic in its scale and moral vision, elemental yet plainspoken, tragic but ultimately stirring in its human dignity',
 		pages: 959,
 		genre: 'Coming of Age',
-		year: 1939
+		year: 1939,
+		cover: null
 	},
 	{
 		isbn: 7543321726,
@@ -78,7 +86,8 @@ var books = [
 		description: 'It is there for the reader who can handle it to keep.',
 		pages: 240,
 		genre: 'Classics',
-		year: 1951
+		year: 1951,
+		cover: null
 	},
 	{
 		isbn: 9350093170,
@@ -87,7 +96,8 @@ var books = [
 		description: 'Criticism of the communist ideal of an equal world',
 		pages: 544,
 		genre: 'Classics',
-		year: 1945
+		year: 1945,
+		cover: null
 	},
 	{
 		isbn: 1291296840,
@@ -96,7 +106,8 @@ var books = [
 		description: 'A dystopian novel depicting an oligarchical, collectivist society',
 		pages: 144,
 		genre: 'Classics',
-		year: 1948
+		year: 1948,
+		cover: null
 	},
 	{
 		isbn: 0679732764,
@@ -106,6 +117,7 @@ var books = [
 		pages: 610,
 		genre: 'Historical',
 		year: 1952
+		cover: null
 	},
 	{
 		isbn: 0399501487,
@@ -114,7 +126,8 @@ var books = [
 		description: 'William Golding's classic tale about a group of English schoolboys who are plane-wrecked on a deserted island is just as chilling and relevant today as when it was first published in 1954.',
 		pages: 189,
 		genre: 'Historical',
-		year: 1954 
+		year: 1954,
+		cover: null
 	},
 	{
 		isbn: 0297819100,
@@ -123,7 +136,8 @@ var books = [
 		description: 'Awe and exhiliration--along with heartbreak and mordant wit--abound',
 		pages: 348,
 		genre: 'Satire',
-		year: 1955
+		year: 1955,
+		cover: null
 	},
 	{
 		isbn: 0140283293,
@@ -132,7 +146,8 @@ var books = [
 		description: 'Not only the soul of the Beat movement and literature, but one of the most important novels of the century',
 		pages: 322,
 		genre: 'Coming of Age',
-		year: 1957
+		year: 1957,
+		cover: null
 	},
 	{
 		isbn: 1977017835,
@@ -141,7 +156,8 @@ var books = [
 		description: 'A frightening fable about good and evil, and the meaning of human freedom',
 		pages: 148,
 		genre: 'Classics',
-		year: 1962
+		year: 1962,
+		cover: null
 	},
 	{
 		isbn: 0385333846,
@@ -150,7 +166,8 @@ var books = [
 		description: 'Kurt Vonnegut's absurdist classic',
 		pages: 285,
 		genre: 'Satire',
-		year: 1969
+		year: 1969,
+		cover: null
 	},
 	{
 		isbn: 1400079179,
@@ -159,7 +176,8 @@ var books = [
 		description: 'Simultaneously lightning-paced, intelligent, and intricately layered with remarkable research and detail, Dan Brown's novel is a thrilling masterpiece—from its opening pages to its stunning conclusion.',
 		pages: 496,
 		genre: 'Mystery',
-		year: 2003
+		year: 2003,
+		cover: null
 	},
 	{
 		isbn: 0545582970,
@@ -168,6 +186,7 @@ var books = [
 		description: 'This special edition of Harry Potter and the Order of the Phoenix has a gorgeous new cover illustration by Kazu Kibuishi.',
 		pages: 870,
 		genre: 'Fantasy',
-		year: 2012
+		year: 2012,
+		cover: null
 	}
 ]

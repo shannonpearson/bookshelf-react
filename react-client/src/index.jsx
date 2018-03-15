@@ -4,7 +4,7 @@ import $ from 'jquery';
 import BookView from './components/BookView.jsx';
 import BookList from './components/BookList.jsx';
 import BookItem from './components/BookItem.jsx';
-import {Bootstrap, Tabs, Tab} from 'react-bootstrap';
+import {Bootstrap, Tabs, Tab, Navbar, Nav, NavItem} from 'react-bootstrap';
 
 var bookViewStyle = {
   border: '2px solid #8c1f13',
@@ -166,8 +166,23 @@ class App extends React.Component {
     // current book and each list with books = state object
     return (
     <div>
+      <Navbar>
+        <Navbar.Header>
+          <Navbar.Brand>
+            <span> Library </span>
+          </Navbar.Brand>
+        </Navbar.Header>
+        <Nav pullRight>
+          <NavItem eventKey={4} href="#/login">
+            Log In
+          </NavItem>
+          <NavItem eventKey={4} href="#/logout">
+            Log Out
+          </NavItem>
+        </Nav>
+      </Navbar>
       <Tabs defaultActiveKey={1} id="list-tabs">
-        <Tab eventKey={1} title="My Shelf">
+        <Tab eventKey={1} title="Bookshelf">
           Tab 1 content
             <BookList books={this.state.shelf} selectBook={this.selectBook} />
         </Tab>

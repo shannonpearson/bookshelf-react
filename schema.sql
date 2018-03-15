@@ -15,6 +15,7 @@ CREATE TABLE favorites (
     pages integer NULL DEFAULT NULL,
     genre varchar(20) NULL DEFAULT NULL,
     year integer NULL DEFAULT NULL,
+    cover varchar(150) NULL DEFAULT NULL,
     PRIMARY KEY (ID)
 );
 
@@ -31,6 +32,7 @@ CREATE TABLE interested (
     pages integer NULL DEFAULT NULL,
     genre varchar(20) NULL DEFAULT NULL,
     year integer NULL DEFAULT NULL,
+    cover varchar(150) NULL DEFAULT NULL,
     PRIMARY KEY (ID)
 );
 
@@ -47,6 +49,7 @@ CREATE TABLE shelf (
     pages integer NULL DEFAULT NULL,
     genre varchar(20) NULL DEFAULT NULL,
     year integer NULL DEFAULT NULL,
+    cover varchar(150) NULL DEFAULT NULL,
     PRIMARY KEY (ID)
 );
 
