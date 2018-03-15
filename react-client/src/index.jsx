@@ -31,6 +31,21 @@ class App extends React.Component {
     });
   }
 
+  search(isbn) {
+    // post request
+    $.ajax({
+      type: 'POST',
+      url: '/search',
+      data: JSON.stringify({isbn: isbn}),
+      success: (data) = { // data should be book object ready to go into state current book
+        this.setState({currentBook: data});
+      },
+      error: () => {
+        console.log('error searching isbn');
+      }
+    })
+  }
+
   addToFavorites() {
     // post request sends list:favorites, adds book object to state favorites list
     $.ajax({
@@ -72,21 +87,6 @@ class App extends React.Component {
       },
       error: () => {
         console.log('error adding to favorites in react post request');
-      }
-    })
-  }
-
-  search(isbn) {
-    // post request
-    $.ajax({
-      type: 'POST',
-      url: '/search',
-      data: JSON.stringify({isbn: isbn}),
-      success: (data) = { // data should be book object ready to go into state current book
-        this.setState({currentBook: data});
-      },
-      error: () => {
-        console.log('error searching isbn');
       }
     })
   }

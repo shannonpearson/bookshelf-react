@@ -39,6 +39,45 @@ app.get('/home', function(req, res) {
 	})
 })
 
+app.post('/search', function(req, res) { // req has object with isbn to search
+	// define url so that it requests the api properly 
+	var isbn = req.body.isbn;
+	var compositeUrl = 'http://openlibrary.org/api/things?query={"type":"/type/edition", "isbn_10":"';
+    compositeUrl += isbn;
+    compositeUrl += '"}';
+    var url = {
+    	url: compositeUrl
+    };
+
+    // request to external api
+    request(url, function(err, res, body) {
+    	if (err) {
+    		console.log('error');
+    	} else {
+    		var code = JSON.parse(body).result[0];
+    		var newUrl = 'http://openlibrary.org/api/get?key=' + code;
+    		request({url: newUrl}, function(err, res, body) {
+    			if (err) {
+    				console.log('async error');
+    			} else {
+    				// res send object with all desired book properties
+    				var obj = JSON.parse(body);
+    				var resObj = {};
+    				resObj.title = obj.result.title || 'unlisted';
+    				resObj.author = obj.result.by_statement || 'unlisted';
+    				resObj.genre = obj.result.genres[0] || 'none';
+    				//resObj.subjects = obj.result.subjects || 'none';
+    				resObj.pages = obj.result.number_of_pages || 0;
+    				resObj.id = obj.result.key || Math.floor(Math.random() * 10000);
+    				resObj.year = obj.result.publish_date || 0000; 
+    				resObj.isbn = obj.result.isbn_10[0];
+    				res.send(resObj);
+    			}
+    		})
+    	}
+    });
+})
+
 // calls db method to add book to db
 app.post('/save', function(req, res) {
 	// want req to have list name and book object (from button and state)
