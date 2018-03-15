@@ -9,7 +9,7 @@ var connection = mysql.createConnection({
 
 // calls callback on all books from table (name input)
 var selectAllFromTable = function(table, callback) {
-  connection.query('SELECT * FROM ?', [table, callback] function(err, results, fields) {
+  connection.query('SELECT * FROM ?', [table], function(err, results, fields) {
     if(err) {
       callback(err, null);
     } else {
@@ -49,4 +49,8 @@ var addToTable = function(table, book, callback) {
 }
 
 
-module.exports.selectAll = selectAll;
+module.exports = {
+  selectAllFromTable: selectAllFromTable,
+  findByISBN: findByISBN,
+  addToTable: addToTable
+}

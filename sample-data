@@ -1,0 +1,173 @@
+var books = [
+	{
+		isbn: 1503302946,
+		title: 'Call of the Wild',
+		author: 'Jack London',
+		description: 'Set in the Yukon during the 1890s Klondike Gold Rush',
+		pages: 66,
+		genre: 'Classics',
+		year: 1903
+	},
+	{
+		isbn: 1450523730,
+		title: 'Ulysses',
+		author: 'James Joyce',
+		description: 'Stream-of-consciousness',
+		pages: 442,
+		genre: 'Modernism',
+		year: 1922 
+	},
+	{
+		isbn: 1975743660,
+		title: 'The Great Gatsby',
+		author: 'F. Scott Fitzgerald',
+		description: 'Exemplary novel of the Jazz Age',
+		pages: 184,
+		genre: 'Modernism',
+		year: 1924
+	},
+	{
+		isbn: 0099908506,
+		title: 'The Sun Also Rises',
+		author: 'Ernest Hemingway',
+		description: 'Quintessential story of the Lost Generation',
+		pages: 256,
+		genre: 'Modernism',
+		year: 1926
+	},
+	{
+		isbn: 1983732141,
+		title: 'The Sound and the Fury',
+		author: 'William Faulkner',
+		description: 'Kaleidoscope of consciousness',
+		pages: 386,
+		genre: 'Historical',
+		year: 1929
+	},
+	{
+		isbn: 0141399139,
+		title: 'Tropic of Cancer',
+		author: 'Henry Miller',
+		description: 'An unforgettable novel of self-confession',
+		pages: 356,
+		genre: 'Erotica',
+		year: 1934
+	},
+	{
+		isbn: 1983811645,
+		title: 'Gone with the Wind',
+		author: 'Margaret Mitchell',
+		description: 'The Great American Novel',
+		pages: 825,
+		genre: 'Historical',
+		year: 1936
+	},
+	{
+		isbn: 0143039431,
+		title: 'The Grapes of Wrath',
+		author: 'John Steinbeck',
+		description: 'A drama that is intensely human yet majestic in its scale and moral vision, elemental yet plainspoken, tragic but ultimately stirring in its human dignity',
+		pages: 959,
+		genre: 'Coming of Age',
+		year: 1939
+	},
+	{
+		isbn: 7543321726,
+		title: 'The Catcher in the Rye',
+		author: 'J.D. Salinger',
+		description: 'It is there for the reader who can handle it to keep.',
+		pages: 240,
+		genre: 'Classics',
+		year: 1951
+	},
+	{
+		isbn: 9350093170,
+		title: 'Animal Farm',
+		author: 'George Orwell,
+		description: 'Criticism of the communist ideal of an equal world',
+		pages: 544,
+		genre: 'Classics',
+		year: 1945
+	},
+	{
+		isbn: 1291296840,
+		title: '1984',
+		author: 'George Orwell',
+		description: 'A dystopian novel depicting an oligarchical, collectivist society',
+		pages: 144,
+		genre: 'Classics',
+		year: 1948
+	},
+	{
+		isbn: 0679732764,
+		title: 'Invisible Man',
+		author: 'Ralph Ellison',
+		description: 'As passionate and witty tour de force of style',
+		pages: 610,
+		genre: 'Historical',
+		year: 1952
+	},
+	{
+		isbn: 0399501487,
+		title: 'Lord of the Flies',
+		author: 'William Golding',
+		description: 'William Golding's classic tale about a group of English schoolboys who are plane-wrecked on a deserted island is just as chilling and relevant today as when it was first published in 1954.',
+		pages: 189,
+		genre: 'Historical',
+		year: 1954 
+	},
+	{
+		isbn: 0297819100,
+		title: 'Lolita',
+		author: 'Vladimir Nabokov',
+		description: 'Awe and exhiliration--along with heartbreak and mordant wit--abound',
+		pages: 348,
+		genre: 'Satire',
+		year: 1955
+	},
+	{
+		isbn: 0140283293,
+		title: 'On the Road',
+		author: 'Jack Kerouac',
+		description: 'Not only the soul of the Beat movement and literature, but one of the most important novels of the century',
+		pages: 322,
+		genre: 'Coming of Age',
+		year: 1957
+	},
+	{
+		isbn: 1977017835,
+		title: 'A Clockwork Orange',
+		author: 'Anthony Burgess',
+		description: 'A frightening fable about good and evil, and the meaning of human freedom',
+		pages: 148,
+		genre: 'Classics',
+		year: 1962
+	},
+	{
+		isbn: 0385333846,
+		title: 'Slaughterhouse-Five',
+		author: 'Kurt Vonnegut',
+		description: 'Kurt Vonnegut's absurdist classic',
+		pages: 285,
+		genre: 'Satire',
+		year: 1969
+	},
+	{
+		isbn: 1400079179,
+		title: 'The Da Vinci Code',
+		author: 'Dan Brown',
+		description: 'Simultaneously lightning-paced, intelligent, and intricately layered with remarkable research and detail, Dan Brown's novel is a thrilling masterpiece—from its opening pages to its stunning conclusion.',
+		pages: 496,
+		genre: 'Mystery',
+		year: 2003
+	},
+	{
+		isbn: 0545582970,
+		title: 'Harry Potter and the Order of the Phoenix',
+		author: 'J.K. Rowling',
+		description: 'This special edition of Harry Potter and the Order of the Phoenix has a gorgeous new cover illustration by Kazu Kibuishi.',
+		pages: 870,
+		genre: 'Fantasy',
+		year: 2012
+	}
+]

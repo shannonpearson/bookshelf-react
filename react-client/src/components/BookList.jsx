@@ -1,20 +1,15 @@
 import React from 'react';
-import ListItem from './ListItem.jsx';
+import BookItem from './BookItem.jsx';
 
 
 
-class List extends React.Component {
+class BookList extends React.Component {
     constructor(props) {
         super(props);
         this.state = { 
           something: null
         }
     }
-
-    // show(book) {
-    // 	// input is entire book item so we can just do props select book on the book
-    // 	this.props.selectBook(book);
-    // }
 
     render() {
 	  	(<div>
@@ -24,6 +19,6 @@ class List extends React.Component {
 	  	</div>
 		)
   	}
-)
+}
 
-export default List;
+export default BookList;

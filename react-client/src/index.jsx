@@ -1,13 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
-import List from './components/List.jsx';
+import BookView from './components/BookView.jsx';
+import BookList from './components/BookList.jsx';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = { 
-      currentBook: null;
+      currentBook: null,
       favorites: [],
       interested: [],
       shelf: []
@@ -37,7 +38,7 @@ class App extends React.Component {
       type: 'POST',
       url: '/search',
       data: JSON.stringify({isbn: isbn}),
-      success: (data) = { // data should be book object ready to go into state current book
+      success: (data) => { // data should be book object ready to go into state current book
         this.setState({currentBook: data});
       },
       error: () => {
@@ -109,19 +110,27 @@ class App extends React.Component {
 
   render () {
     // current book and each list with books = state object
-    return (<div>
-      <h1>Favorites</h1>
-      <List books={this.state.favorites} selectBook={this.selectBook} />
-    </div>
-
+    return (
     <div>
-      <h1>Shelf</h1>
-      <List books={this.state.shelf} selectBook={this.selectBook} />
-    </div>
+      <BookView book={this.state.currentBook} />
+      <div>
 
-    <div>
-      <h1>Interested</h1>
-      <List books={this.state.interested} selectBook={this.selectBook} />
+        <div>
+          <h1>Favorites</h1>
+          <BookList books={this.state.favorites} selectBook={this.selectBook} />
+        </div>
+
+        <div>
+          <h1>Shelf</h1>
+          <BookList books={this.state.shelf} selectBook={this.selectBook} />
+        </div>
+
+        <div>
+          <h1>Interested</h1>
+          <BookList books={this.state.interested} selectBook={this.selectBook} />
+        </div>
+
+      </div>
     </div>
 
     )

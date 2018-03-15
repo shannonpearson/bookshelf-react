@@ -5,7 +5,7 @@ var db = require('../database-mysql');
 
 var app = express();
 
-UNCOMMENT FOR REACT
+//UNCOMMENT FOR REACT
 app.use(express.static(__dirname + '/../react-client/dist'));
 
 // UNCOMMENT FOR ANGULAR

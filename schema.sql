@@ -18,6 +18,7 @@ CREATE TABLE favorites (
     PRIMARY KEY (ID)
 );
 
+-- INSERT INTO favorites (isbn, title, author, description, pages, genre, year) VALUES ('0060850523', 'Brave New World', 'Aldous Huxley', 'O brave new world that has such people in it', '288', 'Science Fiction', '1932');
 
 DROP TABLE IF EXISTS interested;
 
@@ -33,6 +34,8 @@ CREATE TABLE interested (
     PRIMARY KEY (ID)
 );
 
+-- INSERT INTO interested (isbn, title, author, description, pages, genre, year) VALUES ('0679720218', 'The Plague', 'Albert Camus', 'Suffering, madness, compassion', '308', 'Fiction', '1947');
+
 DROP TABLE IF EXISTS shelf; 
 
 CREATE TABLE shelf (
@@ -46,6 +49,8 @@ CREATE TABLE shelf (
     year integer NULL DEFAULT NULL,
     PRIMARY KEY (ID)
 );
+
+-- INSERT INTO shelf (isbn, title, author, description, pages, genre, year) VALUES ('0393319293', 'Invisible Monsters', 'Chuck Palahniuk', 'Brandy Alexander, Queen Supreme', '304', 'Satire', '1999');
 
 
 /*  Execute this file from the command line by typing:
