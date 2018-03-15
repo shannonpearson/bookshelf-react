@@ -71,6 +71,7 @@ app.post('/search', function(req, res) { // req has object with isbn to search
     				resObj.id = obj.result.key || Math.floor(Math.random() * 10000);
     				resObj.year = obj.result.publish_date || 0000; 
     				resObj.isbn = obj.result.isbn_10[0];
+                    resObj.cover = obj.result.cover.large;
     				res.send(resObj);
     			}
     		})

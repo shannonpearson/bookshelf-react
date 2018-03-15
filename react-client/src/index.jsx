@@ -4,7 +4,7 @@ import $ from 'jquery';
 import BookView from './components/BookView.jsx';
 import BookList from './components/BookList.jsx';
 import BookItem from './components/BookItem.jsx';
-import {Bootstrap, Tabs, Tab, Navbar, Nav, NavItem} from 'react-bootstrap';
+import {Bootstrap, Tabs, Tab, Navbar, Nav, NavItem, Grid, Row, Col, Image, Panel} from 'react-bootstrap';
 
 var bookViewStyle = {
   border: '2px solid #8c1f13',
@@ -181,7 +181,30 @@ class App extends React.Component {
           </NavItem>
         </Nav>
       </Navbar>
-      <Tabs defaultActiveKey={1} id="list-tabs">
+
+      <Grid>
+        <Row>
+          <Col sm={3} md={5} lg={6}>
+            <Image src="https://covers.openlibrary.org/b/id/5546156-M.jpg" />
+          </Col>
+          <Col sm={7} md={12} lg={14}>
+            <Panel>
+              <Panel.Body>
+                <Grid>
+                  <Row> { this.state.currentBook.title } </Row>
+                  <Row> { this.state.currentBook.author } </Row>
+                  <Row> { this.state.currentBook.year } </Row>
+                  <Row> { this.state.currentBook.pages } </Row>
+                  <Row> { this.state.currentBook.genre } </Row>
+                  <Row> { this.state.currentBook.description } </Row>
+                </Grid>
+              </Panel.Body>
+            </Panel>
+          </Col>
+        </Row>
+      </Grid>
+
+      <Tabs style={{marginTop: '30', marginLeft: '30'}} defaultActiveKey={1} id="list-tabs">
         <Tab eventKey={1} title="Bookshelf">
           Tab 1 content
             <BookList books={this.state.shelf} selectBook={this.selectBook} />

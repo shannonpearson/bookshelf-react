@@ -39,7 +39,8 @@ var addToTable = function(table, book, callback) {
   var pages = book.pages;
   var genre = book.genre;
   var year = book.year;
-  connection.query('INSERT INTO ? (isbn, title, author, description, pages, genre, year) VALUES (? ? ? ? ? ? ?)', [table, isbn, title, author, description, pages, genre, year], function(err, result) {
+  var cover = book.cover;
+  connection.query('INSERT INTO ? (isbn, title, author, description, pages, genre, year, cover) VALUES (? ? ? ? ? ? ? ?)', [table, isbn, title, author, description, pages, genre, year, cover], function(err, result) {
     if (err) {
       console.log('error inserting book into db', err);
     } else {
