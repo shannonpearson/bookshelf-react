@@ -3,9 +3,11 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import BookView from './components/BookView.jsx';
 import BookList from './components/BookList.jsx';
+import BookItem from './components/BookItem.jsx';
+import {Bootstrap, Tabs, Tab} from 'react-bootstrap';
 
 var bookViewStyle = {
-  border: '1px solid #8c1f13',
+  border: '2px solid #8c1f13',
   backgroundColor: '#e28888',
   width: 400,
   borderRadius: 15,
@@ -14,7 +16,7 @@ var bookViewStyle = {
 }
 
 var listStyle = {
-  border: '1px solid #0d440b',
+  border: '2px solid #0d440b',
   backgroundColor: '#9de590',
   width: 400,
   borderRadius: 15,
@@ -164,25 +166,20 @@ class App extends React.Component {
     // current book and each list with books = state object
     return (
     <div>
-      <div style={bookViewStyle}><BookView book={this.state.currentBook} /></div>
-      <div>
-
-        <div style={listStyle}>
-          <h3>Favorites</h3>
-          <BookList books={this.state.favorites} selectBook={this.selectBook} />
-        </div>
-
-        <div style={listStyle}>
-          <h3>Shelf</h3>
-          <BookList books={this.state.shelf} selectBook={this.selectBook} />
-        </div>
-
-        <div style={listStyle}>
-          <h3>Interested</h3>
-          <BookList books={this.state.interested} selectBook={this.selectBook} />
-        </div>
-
-      </div>
+      <Tabs defaultActiveKey={1} id="list-tabs">
+        <Tab eventKey={1} title="My Shelf">
+          Tab 1 content
+            <BookList books={this.state.shelf} selectBook={this.selectBook} />
+        </Tab>
+        <Tab eventKey={2} title="Favorites">
+            <BookList books={this.state.favorites} selectBook={this.selectBook} />
+          Tab 2 content
+        </Tab>
+        <Tab eventKey={3} title="Interested">
+          Tab 3 content
+            <BookList books={this.state.interested} selectBook={this.selectBook} />
+        </Tab>
+      </Tabs>
     </div>
 
     )
@@ -190,3 +187,23 @@ class App extends React.Component {
 }
 
 ReactDOM.render(<App />, document.getElementById('app'));
+
+      // <div><BookView book={this.state.currentBook} /></div>
+      // <div>
+
+      //   <div>
+      //     <h3>Favorites</h3>
+      //     <BookList books={this.state.favorites} selectBook={this.selectBook} />
+      //   </div>
+
+      //   <div>
+      //     <h3>Shelf</h3>
+      //     <BookList books={this.state.shelf} selectBook={this.selectBook} />
+      //   </div>
+
+      //   <div>
+      //     <h3>Interested</h3>
+      //     <BookList books={this.state.interested} selectBook={this.selectBook} />
+      //   </div>
+
+      // </div>
