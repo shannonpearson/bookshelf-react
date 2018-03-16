@@ -74,11 +74,11 @@ class App extends React.Component {
     $.ajax({
       url: '/home', 
       success: (data) => { // data should be array with favorites, interested, and shelf sets (in that order)
-        this.setState({
-          favorites: data[0],
-          interested: data[1],
-          shelf: data[2]
-        })
+        // this.setState({
+        //   favorites: data[0],
+        //   interested: data[1],
+        //   shelf: data[2]
+        // })
       },
       error: (err) => {
         console.log('err', err);
@@ -159,7 +159,8 @@ class App extends React.Component {
     //     console.log('error viewing book');
     //   }
     // })
-    this.setState({currentBook: book});
+   // this.setState({currentBook: book});
+    console.log('click');
   }
 
   render () {
@@ -182,7 +183,7 @@ class App extends React.Component {
         </Nav>
       </Navbar>
 
-      <Media style={{marginTop: '30', marginLeft: '30'}}>
+      <Media style={{marginTop: 30, marginLeft: 30}}>
         <Media.Left>
           <img width={200} src="https://covers.openlibrary.org/b/id/5546156-M.jpg" />
         </Media.Left>
@@ -196,25 +197,25 @@ class App extends React.Component {
         </Media.Body>
       </Media>
 
-      <Tabs style={{marginTop: '30', marginLeft: '30'}} defaultActiveKey={1} id="list-tabs">
+      <Tabs style={{marginTop: 30, marginLeft: 30}} defaultActiveKey={1} id="list-tabs">
         <Tab eventKey={1} title="Bookshelf">
           {this.state.shelf.map(book => {
             return (
-              <div> {book.title} by {book.author} </div>
+              <div key={book.isbn}> {book.title} by {book.author} </div>
             )
           })}
         </Tab>
         <Tab eventKey={2} title="Favorites">
           {this.state.favorites.map(book => {
             return (
-              <div> {book.title} by {book.author} </div>
+              <div key={book.isbn}> {book.title} by {book.author} </div>
             )
           })}
         </Tab>
         <Tab eventKey={3} title="Interested">
           {this.state.interested.map(book => {
             return (
-              <div> {book.title} by {book.author} </div>
+              <div key={book.isbn}> {book.title} by {book.author} </div>
             )
           })}
         </Tab>
