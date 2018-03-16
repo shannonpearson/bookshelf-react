@@ -4,7 +4,7 @@ import $ from 'jquery';
 import BookView from './components/BookView.jsx';
 import BookList from './components/BookList.jsx';
 import BookItem from './components/BookItem.jsx';
-import {Bootstrap, Tabs, Tab, Navbar, Nav, NavItem, Grid, Row, Col, Image, Panel} from 'react-bootstrap';
+import {Bootstrap, Media, Tabs, Tab, Navbar, Nav, NavItem, Grid, Row, Col, Image, Panel} from 'react-bootstrap';
 
 var bookViewStyle = {
   border: '2px solid #8c1f13',
@@ -182,27 +182,19 @@ class App extends React.Component {
         </Nav>
       </Navbar>
 
-      <Grid>
-        <Row>
-          <Col sm={3} md={5} lg={6}>
-            <Image src="https://covers.openlibrary.org/b/id/5546156-M.jpg" />
-          </Col>
-          <Col sm={7} md={12} lg={14}>
-            <Panel>
-              <Panel.Body>
-                <Grid>
-                  <Row> { this.state.currentBook.title } </Row>
-                  <Row> { this.state.currentBook.author } </Row>
-                  <Row> { this.state.currentBook.year } </Row>
-                  <Row> { this.state.currentBook.pages } </Row>
-                  <Row> { this.state.currentBook.genre } </Row>
-                  <Row> { this.state.currentBook.description } </Row>
-                </Grid>
-              </Panel.Body>
-            </Panel>
-          </Col>
-        </Row>
-      </Grid>
+      <Media style={{marginTop: '30', marginLeft: '30'}}>
+        <Media.Left>
+          <img width={200} src="https://covers.openlibrary.org/b/id/5546156-M.jpg" />
+        </Media.Left>
+        <Media.Body>
+          <div> { this.state.currentBook.title } </div>
+          <div> { this.state.currentBook.author } </div>
+          <div> { this.state.currentBook.year } </div>
+          <div> { this.state.currentBook.pages } </div>
+          <div> { this.state.currentBook.genre } </div>
+          <div> { this.state.currentBook.description } </div>
+        </Media.Body>
+      </Media>
 
       <Tabs style={{marginTop: '30', marginLeft: '30'}} defaultActiveKey={1} id="list-tabs">
         <Tab eventKey={1} title="Bookshelf">
@@ -219,7 +211,6 @@ class App extends React.Component {
         </Tab>
       </Tabs>
     </div>
-
     )
   }
 }
