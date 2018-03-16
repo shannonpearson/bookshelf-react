@@ -159,7 +159,7 @@ class App extends React.Component {
     //     console.log('error viewing book');
     //   }
     // })
-    // this.setState({currentBook: book});
+    this.setState({currentBook: book});
   }
 
   render () {
@@ -198,16 +198,25 @@ class App extends React.Component {
 
       <Tabs style={{marginTop: '30', marginLeft: '30'}} defaultActiveKey={1} id="list-tabs">
         <Tab eventKey={1} title="Bookshelf">
-          Tab 1 content
-            <BookList books={this.state.shelf} selectBook={this.selectBook} />
+          {this.state.shelf.map(book => {
+            return (
+              <div> {book.title} by {book.author} </div>
+            )
+          })}
         </Tab>
         <Tab eventKey={2} title="Favorites">
-            <BookList books={this.state.favorites} selectBook={this.selectBook} />
-          Tab 2 content
+          {this.state.favorites.map(book => {
+            return (
+              <div> {book.title} by {book.author} </div>
+            )
+          })}
         </Tab>
         <Tab eventKey={3} title="Interested">
-          Tab 3 content
-            <BookList books={this.state.interested} selectBook={this.selectBook} />
+          {this.state.interested.map(book => {
+            return (
+              <div> {book.title} by {book.author} </div>
+            )
+          })}
         </Tab>
       </Tabs>
     </div>
@@ -220,6 +229,9 @@ ReactDOM.render(<App />, document.getElementById('app'));
       // <div><BookView book={this.state.currentBook} /></div>
       // <div>
 
+            // <BookList books={this.state.shelf} selectBook={this.selectBook} />
+            // <BookList books={this.state.favorites} selectBook={this.selectBook} />
+            // <BookList books={this.state.interested} selectBook={this.selectBook} />
       //   <div>
       //     <h3>Favorites</h3>
       //     <BookList books={this.state.favorites} selectBook={this.selectBook} />
