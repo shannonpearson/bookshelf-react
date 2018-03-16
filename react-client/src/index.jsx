@@ -190,9 +190,9 @@ class App extends React.Component {
           <div> { this.state.currentBook.title } </div>
           <div> { this.state.currentBook.author } </div>
           <div> { this.state.currentBook.year } </div>
-          <div> { this.state.currentBook.pages } </div>
-          <div> { this.state.currentBook.genre } </div>
-          <div> { this.state.currentBook.description } </div>
+          <div> { this.state.currentBook.pages } pages </div>
+          <div> Genre: { this.state.currentBook.genre } </div>
+          <div style={{fontStyle: 'italic'}}> { this.state.currentBook.description } </div>
         </Media.Body>
       </Media>
 
