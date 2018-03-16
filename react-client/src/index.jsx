@@ -4,7 +4,8 @@ import $ from 'jquery';
 import BookView from './components/BookView.jsx';
 import BookList from './components/BookList.jsx';
 import BookItem from './components/BookItem.jsx';
-import {Bootstrap, Media, Tabs, Tab, Navbar, Nav, NavItem, Grid, Row, Col, Image, Panel} from 'react-bootstrap';
+import SearchISBN from './components/SearchISBN.jsx';
+import {Bootstrap, Media, Tabs, Tab, Navbar, ListGroup, ListGroupItem, Nav, NavItem, Grid, Row, Col, Image, Panel} from 'react-bootstrap';
 
 var bookViewStyle = {
   border: '2px solid #8c1f13',
@@ -87,11 +88,13 @@ class App extends React.Component {
   }
 
   search(isbn) {
+    console.log(isbn);
     // post request
     $.ajax({
       type: 'POST',
       url: '/search',
       data: JSON.stringify({isbn: isbn}),
+      contentType: 'application/json',
       success: (data) => { // data should be book object ready to go into state current book
         this.setState({currentBook: data});
       },
@@ -133,34 +136,13 @@ class App extends React.Component {
 
   addToShelf() {
     // post request sends list:shelf, adds book object to state shelf list    
-    $.ajax({
-      type: 'POST',
-      url: '/save',
-      data: JSON.stringify({list: shelf, book: currentBook}),
-      success: () => {
-        this.setState({favorites: this.state.shelf.concat([this.state.currentBook])});
-      },
-      error: () => {
-        console.log('error adding to favorites in react post request');
-      }
-    })
   }
 
-  selectBook(book) {
-    // renders book to book view by setting state current book
-    // $.ajax({
-    //   type: 'POST',
-    //   url: '/view',
-    //   data: JSON.stringify({id: id}),
-    //   success: (data) => { // data should be book object ready to set to state current book
-    //     this.setState({currentBook: data});
-    //   },
-    //   error: () => {
-    //     console.log('error viewing book');
-    //   }
-    // })
-   // this.setState({currentBook: book});
-    console.log('click');
+  selectBook(book, self=this) {
+    return function(e) {
+      console.log(self)
+      self.setState({currentBook: book})
+    }
   }
 
   render () {
@@ -173,15 +155,25 @@ class App extends React.Component {
             <span> Library </span>
           </Navbar.Brand>
         </Navbar.Header>
+        <Nav>
+          <NavItem eventKey={4} href="#/lists">
+            My Bookshelves
+          </NavItem>
+          <NavItem eventKey={5} href="#/search">
+            Search
+          </NavItem>
+        </Nav>
         <Nav pullRight>
-          <NavItem eventKey={4} href="#/login">
+          <NavItem eventKey={6} href="#/login">
             Log In
           </NavItem>
-          <NavItem eventKey={4} href="#/logout">
+          <NavItem eventKey={7} href="#/logout">
             Log Out
           </NavItem>
         </Nav>
       </Navbar>
+
+      <SearchISBN onSearch={this.search.bind(this)} />
 
       <Media style={{marginTop: 30, marginLeft: 30}}>
         <Media.Left>
@@ -198,27 +190,43 @@ class App extends React.Component {
       </Media>
 
       <Tabs style={{marginTop: 30, marginLeft: 30}} defaultActiveKey={1} id="list-tabs">
+
         <Tab eventKey={1} title="Bookshelf">
+          <ListGroup>
           {this.state.shelf.map(book => {
             return (
-              <div key={book.isbn}> {book.title} by {book.author} </div>
+              <ListGroupItem key={book.isbn} onClick={this.selectBook(book)}>
+                {book.title} by {book.author}
+              </ListGroupItem>
             )
           })}
+          </ListGroup>
         </Tab>
+
         <Tab eventKey={2} title="Favorites">
+          <ListGroup>
           {this.state.favorites.map(book => {
             return (
-              <div key={book.isbn}> {book.title} by {book.author} </div>
+              <ListGroupItem key={book.isbn} onClick={this.selectBook(book)}>
+                {book.title} by {book.author}
+              </ListGroupItem>
             )
           })}
+          </ListGroup>
         </Tab>
+
         <Tab eventKey={3} title="Interested">
+          <ListGroup>
           {this.state.interested.map(book => {
             return (
-              <div key={book.isbn}> {book.title} by {book.author} </div>
+              <ListGroupItem key={book.isbn} onClick={this.selectBook(book)}>
+                {book.title} by {book.author}
+              </ListGroupItem>
             )
           })}
+          </ListGroup>
         </Tab>
+
       </Tabs>
     </div>
     )
@@ -226,26 +234,4 @@ class App extends React.Component {
 }
 
 ReactDOM.render(<App />, document.getElementById('app'));
-
-      // <div><BookView book={this.state.currentBook} /></div>
-      // <div>
-
-            // <BookList books={this.state.shelf} selectBook={this.selectBook} />
-            // <BookList books={this.state.favorites} selectBook={this.selectBook} />
-            // <BookList books={this.state.interested} selectBook={this.selectBook} />
-      //   <div>
-      //     <h3>Favorites</h3>
-      //     <BookList books={this.state.favorites} selectBook={this.selectBook} />
-      //   </div>
-
-      //   <div>
-      //     <h3>Shelf</h3>
-      //     <BookList books={this.state.shelf} selectBook={this.selectBook} />
-      //   </div>
-
-      //   <div>
-      //     <h3>Interested</h3>
-      //     <BookList books={this.state.interested} selectBook={this.selectBook} />
-      //   </div>
-
-      // </div>
+//              <div key={book.isbn} onClick={this.selectBook.bind(this)}> {book.title} by {book.author} </div>

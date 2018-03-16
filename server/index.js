@@ -1,4 +1,5 @@
 var express = require('express');
+var request = require('request');
 var bodyParser = require('body-parser');
 // UNCOMMENT THE DATABASE YOU'D LIKE TO USE
 var db = require('../database-mysql');
@@ -7,7 +8,7 @@ var app = express();
 
 //UNCOMMENT FOR REACT
 app.use(express.static(__dirname + '/../react-client/dist'));
-
+app.use(bodyParser.json());
 // UNCOMMENT FOR ANGULAR
 // app.use(express.static(__dirname + '/../angular-client'));
 // app.use(express.static(__dirname + '/../node_modules'));
@@ -48,6 +49,7 @@ app.post('/search', function(req, res) { // req has object with isbn to search
     var url = {
     	url: compositeUrl
     };
+    console.log('first request url', url)
 
     // request to external api
     request(url, function(err, res, body) {
@@ -55,26 +57,30 @@ app.post('/search', function(req, res) { // req has object with isbn to search
     		console.log('error');
     	} else {
     		var code = JSON.parse(body).result[0];
+            console.log('CODE', body)
     		var newUrl = 'http://openlibrary.org/api/get?key=' + code;
+            console.log('second request url: ', newUrl)
     		request({url: newUrl}, function(err, res, body) {
     			if (err) {
     				console.log('async error');
     			} else {
     				// res send object with all desired book properties
     				var obj = JSON.parse(body);
-    				var resObj = {};
-    				resObj.title = obj.result.title || 'unlisted';
-    				resObj.author = obj.result.by_statement || 'unlisted';
-    				resObj.genre = obj.result.genres[0] || 'none';
-    				//resObj.subjects = obj.result.subjects || 'none';
-    				resObj.pages = obj.result.number_of_pages || 0;
-    				resObj.id = obj.result.key || Math.floor(Math.random() * 10000);
-    				resObj.year = obj.result.publish_date || 0000; 
-    				resObj.isbn = obj.result.isbn_10[0];
-                    resObj.cover = obj.result.cover.large;
-    				res.send(resObj);
-    			}
-    		})
+                    console.log('RES OBJ:', obj.result);
+    				// var resObj = {};
+    				// resObj.title = obj.result.title || 'unlisted';
+    				// resObj.author = obj.result.by_statement || 'unlisted';
+    				// resObj.genre = obj.result.genres[0] || 'none';
+    				// //resObj.subjects = obj.result.subjects || 'none';
+    				// resObj.pages = obj.result.number_of_pages || 0;
+    				// resObj.id = obj.result.key || Math.floor(Math.random() * 10000);
+    				// resObj.year = obj.result.publish_date || 0000; 
+    				// resObj.isbn = obj.result.isbn_10[0];
+        //             resObj.cover = obj.result.cover.large;
+    				//res.send(resObj);
+                    //console.log(res)
+                }
+            })
     	}
     });
 })
