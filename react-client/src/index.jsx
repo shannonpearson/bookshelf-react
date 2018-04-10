@@ -1,11 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
+
+import { Bootstrap, Navbar, Nav, NavItem, Media, Tabs, Tab, ListGroup, ListGroupItem, Grid, Row, Col, Image, Panel } from 'react-bootstrap';
+
 import BookView from './components/BookView.jsx';
 import BookList from './components/BookList.jsx';
 import BookItem from './components/BookItem.jsx';
 import SearchISBN from './components/SearchISBN.jsx';
-import {Bootstrap, Media, Tabs, Tab, Navbar, ListGroup, ListGroupItem, Nav, NavItem, Grid, Row, Col, Image, Panel} from 'react-bootstrap';
+// import Navbar from './components/Navbar.jsx';
+
 
 var bookViewStyle = {
   border: '2px solid #8c1f13',
@@ -75,11 +79,11 @@ class App extends React.Component {
     $.ajax({
       url: '/home', 
       success: (data) => { // data should be array with favorites, interested, and shelf sets (in that order)
-        // this.setState({
-        //   favorites: data[0],
-        //   interested: data[1],
-        //   shelf: data[2]
-        // })
+        this.setState({
+          favorites: data[0],
+          interested: data[1],
+          shelf: data[2]
+        })
       },
       error: (err) => {
         console.log('err', err);
@@ -147,89 +151,82 @@ class App extends React.Component {
 
   render () {
     // current book and each list with books = state object
-    return (
-    <div>
-      <Navbar>
-        <Navbar.Header>
-          <Navbar.Brand>
-            <span> Library </span>
-          </Navbar.Brand>
-        </Navbar.Header>
-        <Nav>
-          <NavItem eventKey={4} href="#/lists">
-            My Bookshelves
-          </NavItem>
-          <NavItem eventKey={5} href="#/search">
-            Search
-          </NavItem>
-        </Nav>
-        <Nav pullRight>
-          <NavItem eventKey={6} href="#/login">
-            Log In
-          </NavItem>
-          <NavItem eventKey={7} href="#/logout">
-            Log Out
-          </NavItem>
-        </Nav>
-      </Navbar>
+    return <div>
+        <Navbar>
+          <Navbar.Header>
+            <Navbar.Brand>
+              <span> Library </span>
+            </Navbar.Brand>
+          </Navbar.Header>
+          <Nav>
+            <NavItem eventKey={1} href="#/lists">
+              My Bookshelves
+            </NavItem>
+            <NavItem eventKey={2} href="#/search">
+              Search
+            </NavItem>
+          </Nav>
+          <Nav pullRight>
+            <NavItem eventKey={3} href="#/login">
+              Log In
+            </NavItem>
+            <NavItem eventKey={4} href="#/logout">
+              Log Out
+            </NavItem>
+          </Nav>
+        </Navbar>
 
-      <SearchISBN onSearch={this.search.bind(this)} />
+        <SearchISBN onSearch={this.search.bind(this)} />
 
-      <Media style={{marginTop: 30, marginLeft: 30}}>
-        <Media.Left>
-          <img width={200} src="https://covers.openlibrary.org/b/id/5546156-M.jpg" />
-        </Media.Left>
-        <Media.Body>
-          <div> { this.state.currentBook.title } </div>
-          <div> { this.state.currentBook.author } </div>
-          <div> { this.state.currentBook.year } </div>
-          <div> { this.state.currentBook.pages } pages </div>
-          <div> Genre: { this.state.currentBook.genre } </div>
-          <div style={{fontStyle: 'italic'}}> { this.state.currentBook.description } </div>
-        </Media.Body>
-      </Media>
+        <Media style={{ marginTop: 30, marginLeft: 30 }}>
+          <Media.Left>
+            <img width={200} src="https://covers.openlibrary.org/b/id/5546156-M.jpg" />
+          </Media.Left>
+          <Media.Body>
+            <div> {this.state.currentBook.title} </div>
+            <div> {this.state.currentBook.author} </div>
+            <div> {this.state.currentBook.year} </div>
+            <div> {this.state.currentBook.pages} pages </div>
+            <div> Genre: {this.state.currentBook.genre} </div>
+            <div style={{ fontStyle: "italic" }}>
+              {" "}
+              {this.state.currentBook.description}{" "}
+            </div>
+          </Media.Body>
+        </Media>
 
-      <Tabs style={{marginTop: 30, marginLeft: 30}} defaultActiveKey={1} id="list-tabs">
+        <Tabs style={{ marginTop: 30, marginLeft: 30 }} defaultActiveKey={1} id="list-tabs">
+          <Tab eventKey={1} title="Bookshelf">
+            <ListGroup>
+              {this.state.shelf.map(book => {
+                return <ListGroupItem key={book.isbn} onClick={this.selectBook(book)}>
+                    {book.title} by {book.author}
+                  </ListGroupItem>;
+              })}
+            </ListGroup>
+          </Tab>
 
-        <Tab eventKey={1} title="Bookshelf">
-          <ListGroup>
-          {this.state.shelf.map(book => {
-            return (
-              <ListGroupItem key={book.isbn} onClick={this.selectBook(book)}>
-                {book.title} by {book.author}
-              </ListGroupItem>
-            )
-          })}
-          </ListGroup>
-        </Tab>
+          <Tab eventKey={2} title="Favorites">
+            <ListGroup>
+              {this.state.favorites.map(book => {
+                return <ListGroupItem key={book.isbn} onClick={this.selectBook(book)}>
+                    {book.title} by {book.author}
+                  </ListGroupItem>;
+              })}
+            </ListGroup>
+          </Tab>
 
-        <Tab eventKey={2} title="Favorites">
-          <ListGroup>
-          {this.state.favorites.map(book => {
-            return (
-              <ListGroupItem key={book.isbn} onClick={this.selectBook(book)}>
-                {book.title} by {book.author}
-              </ListGroupItem>
-            )
-          })}
-          </ListGroup>
-        </Tab>
-
-        <Tab eventKey={3} title="Interested">
-          <ListGroup>
-          {this.state.interested.map(book => {
-            return (
-              <ListGroupItem key={book.isbn} onClick={this.selectBook(book)}>
-                {book.title} by {book.author}
-              </ListGroupItem>
-            )
-          })}
-          </ListGroup>
-        </Tab>
-
-      </Tabs>
-    </div>
-    )
+          <Tab eventKey={3} title="Interested">
+            <ListGroup>
+              {this.state.interested.map(book => {
+                return <ListGroupItem key={book.isbn} onClick={this.selectBook(book)}>
+                    {book.title} by {book.author}
+                  </ListGroupItem>;
+              })}
+            </ListGroup>
+          </Tab>
+        </Tabs>
+      </div>;
   }
 }
 

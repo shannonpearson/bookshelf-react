@@ -1,10 +1,10 @@
-var express = require('express');
-var request = require('request');
-var bodyParser = require('body-parser');
+const express = require('express');
+const request = require('request');
+const bodyParser = require('body-parser');
 // UNCOMMENT THE DATABASE YOU'D LIKE TO USE
-var db = require('../database-mysql');
+const db = require('../database-mysql');
 
-var app = express();
+const app = express();
 
 //UNCOMMENT FOR REACT
 app.use(express.static(__dirname + '/../react-client/dist'));
@@ -13,20 +13,10 @@ app.use(bodyParser.json());
 // app.use(express.static(__dirname + '/../angular-client'));
 // app.use(express.static(__dirname + '/../node_modules'));
 
-// app.get('/items', function (req, res) {
-//   items.selectAll(function(err, data) {
-//     if(err) {
-//       res.sendStatus(500);
-//     } else {
-//       res.json(data);
-//     }
-//   });
-// });
-
 app.get('/home', function(req, res) {
-	var books = {};
+	const books = {};
 	// get from favorites list
-	db.selectAllFromTable('favorites', (results) => {
+	db.selectAllFromTable('books', (results) => {
 		books.favorites = results;
 		// get from interested list
 		db.selectAllFromTable('interested', (results) => {
@@ -40,13 +30,47 @@ app.get('/home', function(req, res) {
 	})
 })
 
-app.post('/search', function(req, res) { // req has object with isbn to search
+app.post('/books/find', function(req, res) {
+	const searchQuery = req.body.query.split(' ').join('+');
+	console.log('request search query', searchQuery);
+	const url = 'http://openlibrary.org/search.json?q=' + searchQuery;
+	request(url, function(err, res, body) {
+		if (err) {
+			console.log('error on search');
+		} else {
+			const results = JSON.parse(body); 
+			const { docs } = results;
+			console.log('docs', docs)
+			const keys = []; // do this this way first then try using request-promise
+			docs.forEach((obj) => {
+				keys.push(obj.key);
+			})
+			console.log('keys', keys);
+			const bookItems = [];
+			keys.forEach((key) => {
+				// compose url from key and run request with key to get entire book objects
+				// (going to want to render each one and be able to drop all book info into database if saved)
+				const newUrl = 'http://openlibrary.org/api/get?key=' + key;
+				request({url: newUrl}, function(err, res, body) {
+					if (err) {
+						console.log('async error');
+					} else {
+						const obj = JSON.parse(body);
+						console.log('res obj', obj);
+					}
+				})
+			})
+		}
+	})
+});
+
+app.post('books/search', function(req, res) { // req has object with isbn to search
 	// define url so that it requests the api properly 
-	var isbn = req.body.isbn;
-	var compositeUrl = 'http://openlibrary.org/api/things?query={"type":"/type/edition", "isbn_10":"';
+	const isbn = req.body.isbn;
+	let compositeUrl = 'http://openlibrary.org/api/things?query={"type":"/type/edition", "isbn_10":"';
     compositeUrl += isbn;
     compositeUrl += '"}';
-    var url = {
+    const url = {
     	url: compositeUrl
     };
     console.log('first request url', url)
@@ -56,18 +80,18 @@ app.post('/search', function(req, res) { // req has object with isbn to search
     	if (err) {
     		console.log('error');
     	} else {
-    		var code = JSON.parse(body).result[0];
+    		const code = JSON.parse(body).result[0];
             console.log('CODE', body)
-    		var newUrl = 'http://openlibrary.org/api/get?key=' + code;
+    		const newUrl = 'http://openlibrary.org/api/get?key=' + code;
             console.log('second request url: ', newUrl)
     		request({url: newUrl}, function(err, res, body) {
     			if (err) {
     				console.log('async error');
     			} else {
     				// res send object with all desired book properties
-    				var obj = JSON.parse(body);
+    				const obj = JSON.parse(body);
                     console.log('RES OBJ:', obj.result);
-    				// var resObj = {};
+    				// const resObj = {};
     				// resObj.title = obj.result.title || 'unlisted';
     				// resObj.author = obj.result.by_statement || 'unlisted';
     				// resObj.genre = obj.result.genres[0] || 'none';
@@ -85,13 +109,18 @@ app.post('/search', function(req, res) { // req has object with isbn to search
     });
 })
 
+// renders book view from database
+app.get('/books/view/:id', function(req, res) {
+
+});
+
 // calls db method to add book to db
-app.post('/save', function(req, res) {
+app.post('/books/save', function(req, res) {
 	// want req to have list name and book object (from button and state)
 	// add to db
-	var list = req.body.list;
-	var book = req.body.book;
-	db.addToTable(list, book, function(result) {
+	const list = req.body.shelf;
+	const book = req.body.book;
+	db.addToTable(shelf, book, function(result) {
 		console.log('saved to db according to app.post');
 	})
 })
