@@ -23,7 +23,7 @@ app.get('/home', function(req, res) {
 	})
 })
 
-app.post('/books/find', function(req, res) {
+app.get('/books/find', function(req, res) {
 	const searchQuery = req.body.query.split(' ').join('+');
 	const url = 'http://openlibrary.org/search.json?q=' + searchQuery;
 	axios.get(url)
