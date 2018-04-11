@@ -1,6 +1,7 @@
 const express = require('express');
 const request = require('request');
 const bodyParser = require('body-parser');
+const axios = require('axios');
 // UNCOMMENT THE DATABASE YOU'D LIKE TO USE
 const db = require('../database-mysql');
 
@@ -16,52 +17,35 @@ app.use(bodyParser.json());
 app.get('/home', function(req, res) {
 	const books = {};
 	// get from favorites list
-	db.selectAllFromTable('books', (results) => {
-		books.favorites = results;
-		// get from interested list
-		db.selectAllFromTable('interested', (results) => {
-			books.interested = results;
-			// get from shelf list
-			db.selectAllFromTable('shelf', (results) => {
-				books.shelf = results;
-				res.send(books);
-			})
-		})
+	db.getAllBooks((response) => {
+		console.log(response);
+		res.send(response);
 	})
 })
 
 app.post('/books/find', function(req, res) {
 	const searchQuery = req.body.query.split(' ').join('+');
-	console.log('request search query', searchQuery);
 	const url = 'http://openlibrary.org/search.json?q=' + searchQuery;
-	request(url, function(err, res, body) {
-		if (err) {
-			console.log('error on search');
-		} else {
-			const results = JSON.parse(body); 
-			const { docs } = results;
-			console.log('docs', docs)
-			const keys = []; // do this this way first then try using request-promise
+	axios.get(url)
+		.catch((error) => {
+			console.log('search error', error);
+		})
+		.then((response) => {
+			const docs = response.data.docs.slice(0, 4);
+			const books = [];
 			docs.forEach((obj) => {
-				keys.push(obj.key);
+				const bookObj = {
+					isbn: obj.isbn ? obj.isbn[0] : null,
+					title: obj.title_suggest || obj.title || null,
+					author: obj.author_name ? obj.author_name[0] : null,
+					year: obj.publish_year ? Math.min(obj.publish_year) : null,
+					cover: obj.cover_i || null,
+					key: obj.key || null,
+				};
+				books.push(bookObj);
 			})
-			console.log('keys', keys);
-			const bookItems = [];
-			keys.forEach((key) => {
-				// compose url from key and run request with key to get entire book objects
-				// (going to want to render each one and be able to drop all book info into database if saved)
-				const newUrl = 'http://openlibrary.org/api/get?key=' + key;
-				request({url: newUrl}, function(err, res, body) {
-					if (err) {
-						console.log('async error');
-					} else {
-						const obj = JSON.parse(body);
-						console.log('res obj', obj);
-					}
-				})
-			})
-		}
-	})
+			res.send(books);
+		})		
 });
 
 app.post('books/search', function(req, res) { // req has object with isbn to search

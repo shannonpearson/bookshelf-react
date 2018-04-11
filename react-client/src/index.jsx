@@ -1,14 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
+import axios from 'axios';
 
-import { Bootstrap, Navbar, Nav, NavItem, Media, Tabs, Tab, ListGroup, ListGroupItem, Grid, Row, Col, Image, Panel } from 'react-bootstrap';
+import { Bootstrap, Media, Tabs, Tab, ListGroup, ListGroupItem, Grid, Row, Col, Image, Panel } from 'react-bootstrap';
 
 import BookView from './components/BookView.jsx';
 import BookList from './components/BookList.jsx';
 import BookItem from './components/BookItem.jsx';
 import SearchISBN from './components/SearchISBN.jsx';
-// import Navbar from './components/Navbar.jsx';
+import Navbar from './components/Navbar.jsx';
 
 
 var bookViewStyle = {
@@ -70,42 +71,51 @@ class App extends React.Component {
         pages: 256,
         genre: 'Modernism',
         year: 1926
-      }]
+      }],
+      searchResults: [],
     };
     this.selectBook = this.selectBook.bind(this)
   }
 
   componentDidMount() {
-    $.ajax({
-      url: '/home', 
-      success: (data) => { // data should be array with favorites, interested, and shelf sets (in that order)
-        this.setState({
-          favorites: data[0],
-          interested: data[1],
-          shelf: data[2]
-        })
-      },
-      error: (err) => {
-        console.log('err', err);
-      }
-    });
+    // $.ajax({
+    //   url: '/home', 
+    //   success: (data) => { // data should be array with favorites, interested, and shelf sets (in that order)
+    //   },
+    //   error: (err) => {
+    //     console.log('err', err);
+    //   }
+    // });
   }
 
-  search(isbn) {
-    console.log(isbn);
+  search(query) {
+    console.log('query:', query);
     // post request
-    $.ajax({
-      type: 'POST',
-      url: '/search',
-      data: JSON.stringify({isbn: isbn}),
-      contentType: 'application/json',
-      success: (data) => { // data should be book object ready to go into state current book
-        this.setState({currentBook: data});
-      },
-      error: () => {
-        console.log('error searching isbn');
-      }
-    })
+	const searchQuery = query.split(' ').join('+');
+	const url = 'http://openlibrary.org/search.json?q=' + query;
+	axios.get(url)
+		.catch((error) => {
+			console.log('search error', error);
+		})
+		.then((response) => {
+			const docs = response.data.docs.slice(0, 4);
+			const books = [];
+			docs.forEach(async (obj) => {
+        console.log(obj)
+				const bookObj = {
+					isbn: obj.isbn ? obj.isbn[0] : null,
+					title: obj.title_suggest || obj.title || null,
+					author: obj.author_name ? obj.author_name[0] : null,
+					year: obj.publish_year ? Math.min(...obj.publish_year) : null,
+          key: obj.key || null,
+          cover: obj.cover_i ? 'http://covers.openlibrary.org/b/id/' + obj.cover_i + '-M.jpg' : null,
+        };
+				books.push(bookObj);
+			});
+			this.setState({ searchResults: books }, () => {
+        console.log(this.state.searchResults);
+      });
+		}) 
   }
 
   addToFavorites() {
@@ -151,31 +161,9 @@ class App extends React.Component {
 
   render () {
     // current book and each list with books = state object
-    return <div>
-        <Navbar>
-          <Navbar.Header>
-            <Navbar.Brand>
-              <span> Library </span>
-            </Navbar.Brand>
-          </Navbar.Header>
-          <Nav>
-            <NavItem eventKey={1} href="#/lists">
-              My Bookshelves
-            </NavItem>
-            <NavItem eventKey={2} href="#/search">
-              Search
-            </NavItem>
-          </Nav>
-          <Nav pullRight>
-            <NavItem eventKey={3} href="#/login">
-              Log In
-            </NavItem>
-            <NavItem eventKey={4} href="#/logout">
-              Log Out
-            </NavItem>
-          </Nav>
-        </Navbar>
-
+    return (
+      <div>
+        <Navbar />
         <SearchISBN onSearch={this.search.bind(this)} />
 
         <Media style={{ marginTop: 30, marginLeft: 30 }}>
@@ -194,6 +182,7 @@ class App extends React.Component {
             </div>
           </Media.Body>
         </Media>
+
 
         <Tabs style={{ marginTop: 30, marginLeft: 30 }} defaultActiveKey={1} id="list-tabs">
           <Tab eventKey={1} title="Bookshelf">
@@ -226,7 +215,8 @@ class App extends React.Component {
             </ListGroup>
           </Tab>
         </Tabs>
-      </div>;
+      </div>
+    );
   }
 }
 

@@ -2,15 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
 
-import { Bootstrap, NavBar, Nav, NavItem } from 'react-bootstrap';
+import { Bootstrap, Navbar as NavBar, Nav, NavItem } from 'react-bootstrap';
 
-const Navbar = (props) => (
-    <Navbar>
-      <Navbar.Header>
-        <Navbar.Brand>
+const Navbar = props => (
+  <div>
+    <NavBar>
+      <NavBar.Header>
+        <NavBar.Brand>
           <span> Library </span>
-        </Navbar.Brand>
-      </Navbar.Header>
+        </NavBar.Brand>
+      </NavBar.Header>
       <Nav>
         <NavItem eventKey={1} href="#/lists">
           My Bookshelves
@@ -27,7 +28,8 @@ const Navbar = (props) => (
           Log Out
         </NavItem>
       </Nav>
-    </Navbar>
+    </NavBar>
+  </div>
 );
 
 export default Navbar;

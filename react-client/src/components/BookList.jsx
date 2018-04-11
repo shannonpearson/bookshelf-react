@@ -21,4 +21,3 @@ class BookList extends React.Component {
 }
 
 export default BookList;
-	    	// There are { this.props.books.length } books.

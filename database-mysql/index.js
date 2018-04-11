@@ -8,8 +8,8 @@ const connection = mysql.createConnection({
 });
 
 // calls callback on all books from table (name input)
-const selectAllFromTable = function(table, callback) {
-  connection.query('SELECT * FROM ?', [table], function(err, results, fields) {
+const getAllBooks = function(callback) {
+  connection.query('SELECT * FROM books', function(err, results, fields) {
     if(err) {
       callback(err, null);
     } else {
@@ -51,7 +51,7 @@ const addToTable = function(shelf, book, callback) {
 
 
 module.exports = {
-  selectAllFromTable: selectAllFromTable,
-  findByISBN: findByISBN,
-  addToTable: addToTable
+  getAllBooks,
+  findByISBN,
+  addToTable,
 }
