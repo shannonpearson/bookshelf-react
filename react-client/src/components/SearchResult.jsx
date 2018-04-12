@@ -17,7 +17,7 @@ class searchResult extends React.Component {
     const { book } = this.props;
     return (
       <div>
-        (book.cover && <Image src={book.cover} alt="Book Cover" thumbnail />)
+        {book.cover && <Image src={book.cover} alt="Book Cover" thumbnail />}
         <div>
           <div> {book.title} </div>
           <div> {book.author} </div>
