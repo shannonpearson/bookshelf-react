@@ -1,5 +1,5 @@
 import React from 'react';
-import BookItem from './BookItem';
+// import BookItem from './BookItem';
 
 
 class BookList extends React.Component {
@@ -20,7 +20,8 @@ class BookList extends React.Component {
     return (
       <div>
         { this.props.books.map(book =>
-          <BookItem key={book.isbn} book={book} onClick={this.props.selectBook(book)} />)}
+          // <BookItem key={book.isbn} book={book} />)}
+          <div> {book.title} by {book.author} </div>)}
         {!this.state.deleted && <span> delete me </span>}
       </div>
     );

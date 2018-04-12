@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 
-class SearchISBN extends React.Component {
+class Search extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -70,4 +70,4 @@ class SearchISBN extends React.Component {
   }
 }
 
-export default SearchISBN;
+export default Search;

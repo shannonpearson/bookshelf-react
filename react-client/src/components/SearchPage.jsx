@@ -1,13 +1,13 @@
 import React from 'react';
 
-import SearchISBN from './SearchISBN';
-import SearchResultsList from './SearchResultsList';
+import Search from './Search';
+import SearchResults from './SearchResults';
 
 class SearchPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchResults: [],
+      results: [],
     };
   }
 
@@ -19,9 +19,9 @@ class SearchPage extends React.Component {
   render() {
     return (
       <div>
-        <SearchISBN onSearch={this.search} />
+        <Search onSearch={this.search} />
         {this.state.searchResults.length > 0 &&
-          <SearchResultsList books={this.state.searchResults} />
+          <SearchResults books={this.state.results} />
         }
       </div>
     );
