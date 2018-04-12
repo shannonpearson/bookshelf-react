@@ -8,7 +8,7 @@ const db = require('../database-mysql');
 const app = express();
 
 // UNCOMMENT FOR REACT
-app.use(express.static(`${__dirname }/../react-client/dist`));
+app.use(express.static(`${__dirname}/../react-client/dist`));
 app.use(bodyParser.json());
 // UNCOMMENT FOR ANGULAR
 // app.use(express.static(__dirname + '/../angular-client'));
@@ -112,14 +112,20 @@ app.use(bodyParser.json());
 app.get('/books/shelf', (req, res) => {
   // should send back object with favorites, interested, shelf
   db.getAllBooks((response) => {
-	response = JSON.parse(JSON.stringify(response));
-	console.log('response', response);
-	// for each book, add to object under property matching book 'shelf' property
-	const books = {};
-	response.forEach((book) => {
-		books[book.shelf].push(book);
-	});
+    const items = JSON.parse(JSON.stringify(response));
+    // for each book, add to object under property matching book 'shelf' property
+    console.log(items);
+    const books = {
+      favorites: [],
+      interested: [],
+      myshelf: [],
+    };
+    items.forEach((book) => {
+      books[book.shelf].push(book);
+    });
+    console.log(books);
   });
+  res.sendStatus(201);
 });
 
 app.listen(3000, () => {

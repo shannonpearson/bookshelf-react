@@ -49,7 +49,7 @@ const addToTable = function (shelf, book, callback) {
   });
 };
 
-INSERT INTO books (isbn, title, author, pages, year, shelf) VALUES ('1934535423', 'Some book', 'Author McAuthorFace', '54', '1977', 'favorites');
+// INSERT INTO books (isbn, title, author, pages, year, shelf) VALUES ('1934535423', 'Some book', 'Author McAuthorFace', '54', '1977', 'favorites');
 
 
 module.exports = {
