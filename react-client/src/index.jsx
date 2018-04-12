@@ -27,17 +27,17 @@ class App extends React.Component {
   render() {
     return (
       <div>
-          <NavBar>
-            <NavBar.Header>
-              <NavBar.Brand>
-                <span> Library </span>
-              </NavBar.Brand>
-            </NavBar.Header>
-            <Nav>
-              <NavItem eventKey={1} onClick={this.renderBookshelves}>
+        <Navbar>
+          <Navbar.Header>
+            <Navbar.Brand>
+              <span> Library </span>
+            </Navbar.Brand>
+          </Navbar.Header>
+          <Nav>
+            <NavItem eventKey={1} onClick={this.renderBookshelves}>
                 My Bookshelves
-              </NavItem>
-              <NavItem eventKey={2} onClick={this.renderSearch}>
+            </NavItem>
+            <NavItem eventKey={2} onClick={this.renderSearch}>
                 Search
             </NavItem>
           </Nav>
@@ -49,12 +49,12 @@ class App extends React.Component {
               Log Out
             </NavItem>
           </Nav>
-        </NavBar>
+        </Navbar>
         {this.state.showSearch ? <SearchPage /> : <BookShelf />}
       </div>
-    )
+    );
   }
 }
-  
+
 ReactDOM.render(<App />, document.getElementById('app'));
-  
+

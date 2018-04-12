@@ -114,7 +114,6 @@ app.get('/books/shelf', (req, res) => {
   db.getAllBooks((response) => {
     const items = JSON.parse(JSON.stringify(response));
     // for each book, add to object under property matching book 'shelf' property
-    console.log(items);
     const books = {
       favorites: [],
       interested: [],
@@ -123,9 +122,8 @@ app.get('/books/shelf', (req, res) => {
     items.forEach((book) => {
       books[book.shelf].push(book);
     });
-    console.log(books);
+    res.send(books);
   });
-  res.sendStatus(201);
 });
 
 app.listen(3000, () => {
