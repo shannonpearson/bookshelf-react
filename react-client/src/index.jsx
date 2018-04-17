@@ -11,6 +11,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       showSearch: false,
+      myBooks: [],
     };
     this.renderBookshelves = this.renderBookshelves.bind(this);
     this.renderSearch = this.renderSearch.bind(this);

@@ -51,7 +51,7 @@ class SearchPage extends React.Component {
 
   render() {
     return (
-      <div style={{ marginLeft: 20 }}>
+      <div style={{ marginLeft: 40 }}>
         <span> Find a book: </span>
         <input
           type="text"

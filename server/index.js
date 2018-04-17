@@ -3,7 +3,7 @@ const request = require('request');
 const bodyParser = require('body-parser');
 const axios = require('axios');
 // UNCOMMENT THE DATABASE YOU'D LIKE TO USE
-const db = require('../database-mysql');
+const db = require('../database-mysql/schema.js');
 
 const app = express();
 
@@ -48,72 +48,26 @@ app.use(bodyParser.json());
 // 		})
 // });
 
-// app.post('books/search', function(req, res) { // req has object with isbn to search
-// 	// define url so that it requests the api properly
-// 	const isbn = req.body.isbn;
-// 	let compositeUrl = 'http://openlibrary.org/api/things?query={"type":"/type/edition", "isbn_10":"';
-//     compositeUrl += isbn;
-//     compositeUrl += '"}';
-//     const url = {
-//     	url: compositeUrl
-//     };
-//     console.log('first request url', url)
-
-//     // request to external api
-//     request(url, function(err, res, body) {
-//     	if (err) {
-//     		console.log('error');
-//     	} else {
-//     		const code = JSON.parse(body).result[0];
-//             console.log('CODE', body)
-//     		const newUrl = 'http://openlibrary.org/api/get?key=' + code;
-//             console.log('second request url: ', newUrl)
-//     		request({url: newUrl}, function(err, res, body) {
-//     			if (err) {
-//     				console.log('async error');
-//     			} else {
-//     				// res send object with all desired book properties
-//     				const obj = JSON.parse(body);
-// console.log('RES OBJ:', obj.result);
-    				// const resObj = {};
-    				// resObj.title = obj.result.title || 'unlisted';
-    				// resObj.author = obj.result.by_statement || 'unlisted';
-    				// resObj.genre = obj.result.genres[0] || 'none';
-    				// //resObj.subjects = obj.result.subjects || 'none';
-    				// resObj.pages = obj.result.number_of_pages || 0;
-    				// resObj.id = obj.result.key || Math.floor(Math.random() * 10000);
-    				// resObj.year = obj.result.publish_date || 0000;
-    				// resObj.isbn = obj.result.isbn_10[0];
-//             resObj.cover = obj.result.cover.large;
-    				// res.send(resObj);
-// console.log(res)
-//                 }
-//             })
-//     	}
-//     });
-// })
-
-// renders book view from database
-// app.get('/books/view/:id', function(req, res) {
-
-// });
-
 // calls db method to add book to db
-// app.post('/books/save', function(req, res) {
-// 	// want req to have list name and book object (from button and state)
-// 	// add to db
-// 	const list = req.body.shelf;
-// 	const book = req.body.book;
-// 	db.addToTable(shelf, book, function(result) {
-// 		console.log('saved to db according to app.post');
-// 	})
-// })
+app.post('/books/save', (req, res) => {
+  // want req to have list name and book object (from button and state)
+  // add to db
+  // console.log('request body save', req.body);
+  db.save(req.body.book, () => {
+    // console.log('saved to database! calling callback...');
+    // console.log('results back from save', results);
+    // res.send(results);  
+    res.sendStatus(201);
+  });
+});
 
 app.get('/books/shelf', (req, res) => {
   // should send back object with favorites, interested, shelf
   db.getAllBooks((response) => {
+    // console.log('response', response);
     const items = JSON.parse(JSON.stringify(response));
     // for each book, add to object under property matching book 'shelf' property
+    console.log('items', items)
     const books = {
       favorites: [],
       interested: [],
@@ -122,6 +76,7 @@ app.get('/books/shelf', (req, res) => {
     items.forEach((book) => {
       books[book.shelf].push(book);
     });
+    console.log('books for res', books)
     res.send(books);
   });
 });

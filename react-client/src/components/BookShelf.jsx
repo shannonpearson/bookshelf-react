@@ -16,11 +16,12 @@ class BookShelf extends React.Component {
   componentWillMount() {
     axios.get('/books/shelf')
       .then((results) => {
+        console.log('results to add to shelf', results);
         this.setState({
           favorites: results.data.favorites,
           myshelf: results.data.myshelf,
           interested: results.data.interested,
-        });
+        }, console.log('state', this.state));
       });
   }
 
