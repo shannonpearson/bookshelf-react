@@ -29,13 +29,13 @@ class searchResult extends React.Component {
   render() {
     const { book } = this.props;
     return (
-      <div style={{ marginTop: '80px' }}>
+      <div>
         {this.state.added &&
           <Alert bsStyle="success" onDismiss={this.handleDismiss} style={{ marginBottom: '5px' }}> Added to shelf! </Alert>
         }
         <Media>
           <Media.Left>
-            <img src={book.cover || 'http://i.imgur.com/sJ3CT4V.gif'} alt="Book Cover" style={{ width: '150px' }} />
+            <img src={book.cover || 'http://i.imgur.com/sJ3CT4V.gif'} alt="Book Cover" style={{ width: '150px', paddingBottom: '80px', }} />
           </Media.Left>
           <Media.Body>
             <Media.Heading> {book.title} </Media.Heading>

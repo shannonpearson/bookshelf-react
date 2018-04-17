@@ -59,7 +59,7 @@ class SearchPage extends React.Component {
           placeholder=" Search by ISBN"
           onChange={this.onChange}
           value={this.state.term}
-          style={{ marginLeft: 10 }}
+          style={{ marginLeft: 10, marginBottom: '80px' }}
         />
         <button type="button" onClick={this.search} style={{ marginLeft: 10 }}>
           Search
